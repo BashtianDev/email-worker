@@ -52,9 +52,9 @@ export default {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            from: "Formulario de Contacto <contacto@alejandrocalvo.com>",
+            from: "Formulario Web <contacto@alejandrocalvo.com>",
             to: "alejandrocalvomartinez@gmail.com",
-            subject: `Nuevo mensaje de contacto: ${subject || "Sin asunto"}`,
+            subject: `Mensaje: ${email} - ${subject || "Sin asunto"}`,
             html: `
               <h2>Nuevo mensaje de contacto</h2>
               <p><strong>Nombre:</strong> ${name}</p>
@@ -75,7 +75,7 @@ export default {
         // Responder al cliente
         return new Response(JSON.stringify({ 
           success: true, 
-          message: "Mensaje enviado correctamente" 
+          message: "Mensaje enviado correctamente. Responderemos lo antes posible." 
         }), { headers, status: 200 });
 
       } catch (error) {
