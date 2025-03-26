@@ -1,3 +1,4 @@
+//worker.ts
 addEventListener('fetch', (event: FetchEvent) => {
 	event.respondWith(handleRequest(event.request, (event as any).env)); // Cast para acceder a `env`
 });
