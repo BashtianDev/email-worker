@@ -19,7 +19,7 @@ export default {
       try {
         // Configurar los headers para CORS
         const headers = {
-          "Access-Control-Allow-Origin": origin, // Permite el origen específico desde donde se hizo la solicitud
+          "Access-Control-Allow-Origin": origin,
           "Access-Control-Allow-Methods": "POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
           "Content-Type": "application/json"
@@ -30,12 +30,19 @@ export default {
           return new Response(null, { headers, status: 204 });
         }
 
-        // Procesar los datos del formulario
-        const formData = await request.formData();
-        const name = formData.get("name") || "Sin nombre";
-        const email = formData.get("email") || "Sin email";
-        const message = formData.get("message") || "Sin mensaje";
-        const subject = formData.get("subject") || "Sin asunto";
+        // Procesar los datos del formulario (JSON)
+        const contentType = request.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("application/json")) {
+          return new Response("Formato de solicitud no válido", { status: 400 });
+        }
+
+        const body = await request.json();
+        const { name, email, subject, message } = body;
+
+        // Validar que los datos requeridos estén presentes
+        if (!name || !email || !message) {
+          return new Response("Faltan campos obligatorios", { status: 400 });
+        }
 
         // Enviar el email usando Resend
         const resendResponse = await fetch("https://api.resend.com/emails", {
@@ -47,12 +54,12 @@ export default {
           body: JSON.stringify({
             from: "Formulario de Contacto <contacto@alejandrocalvo.com>",
             to: "alejandrocalvomartinez@gmail.com",
-            subject: `Nuevo mensaje de contacto: ${subject}`,
+            subject: `Nuevo mensaje de contacto: ${subject || "Sin asunto"}`,
             html: `
               <h2>Nuevo mensaje de contacto</h2>
               <p><strong>Nombre:</strong> ${name}</p>
               <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Asunto:</strong> ${subject}</p>
+              <p><strong>Asunto:</strong> ${subject || "Sin asunto"}</p>
               <p><strong>Mensaje:</strong></p>
               <p>${message}</p>
             `
