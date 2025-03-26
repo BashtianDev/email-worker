@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "email-worker",
-	"main": "src/index.ts",
+	"main": "src/worker.js",
 	"compatibility_date": "2025-03-21",
 	"observability": {
 		"enabled": true
