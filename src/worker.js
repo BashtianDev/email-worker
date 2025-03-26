@@ -20,6 +20,7 @@ export default {
 		const name = formData.get("name") || "Sin nombre";
 		const email = formData.get("email") || "Sin email";
 		const message = formData.get("message") || "Sin mensaje";
+		const subject = formData.get("subject") || "Sin asunto";
   
 		// Configurar los headers para CORS
 		const headers = {
@@ -44,11 +45,12 @@ export default {
 		  body: JSON.stringify({
 			from: "Formulario de Contacto <contacto@alejandrocalvo.com>",
 			to: "alejandrocalvomartinez@gmail.com",
-			subject: `Nuevo mensaje de contacto de ${name}`,
+			subject: `Nuevo mensaje de contacto: ${subject}`,
 			html: `
 			  <h2>Nuevo mensaje de contacto</h2>
 			  <p><strong>Nombre:</strong> ${name}</p>
 			  <p><strong>Email:</strong> ${email}</p>
+			  <p><strong>Asunto:</strong> ${subject}</p>
 			  <p><strong>Mensaje:</strong></p>
 			  <p>${message}</p>
 			`
