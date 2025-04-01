@@ -10,7 +10,8 @@ export default {
 
     const allowedOrigins = [
       "https://alejandrocalvo.com",
-      "https://alejandrocalvo-com.pages.dev"
+      "https://alejandrocalvo-com.pages.dev",
+      "*"
     ];
 
     function isAllowedOrigin(origin) {
