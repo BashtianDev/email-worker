@@ -14,9 +14,14 @@ export default {
     ];
 
     function isAllowedOrigin(origin) {
+      if (!origin) {
+        return false;
+      }
+
       if (allowedOrigins.includes(origin)) {
         return true;
       }
+
       return origin.endsWith(".vercel.app");
     }
 
@@ -27,7 +32,7 @@ export default {
     try {
       // Configurar los headers para CORS
       const headers = {
-        "Access-Control-Allow-Origin": origin,
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json"
