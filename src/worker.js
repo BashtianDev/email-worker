@@ -5,7 +5,7 @@ export default {
       return new Response("Método no permitido", { status: 405 });
     }
 
-    // Verificar el origen de la petición
+    // Verificar el origen de la petición. Sustituir por orígenes permitidos
     const origin = request.headers.get("Origin");
 
     const allowedOrigins = [
@@ -32,7 +32,7 @@ export default {
     try {
       // Configurar los headers para CORS
       const headers = {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*", // Permitir todos los orígenes para test. 
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Content-Type": "application/json"
@@ -64,7 +64,7 @@ export default {
           "Authorization": `Bearer ${env.RESEND_API_KEY}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
+        body: JSON.stringify({ // Configuración del formato del correo entrante. 
           from: "Formulario Web <contacto@alejandrocalvo.com>",
           to: "alejandrocalvomartinez@gmail.com",
           subject: `Mensaje: ${email} - ${subject || "Sin asunto"}`,
